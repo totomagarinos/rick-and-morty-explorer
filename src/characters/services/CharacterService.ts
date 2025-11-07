@@ -1,7 +1,5 @@
-import type { CharacterApiResponse } from "../models";
+import type { Character, CharacterApiResponse } from "../models";
 import { axiosService } from "./AxiosService";
-
-export const BASE_URL = "https://rickandmortyapi.com/api";
 
 const axiosInstance = axiosService.getAxiosInstance();
 
@@ -12,8 +10,18 @@ export const GetCharacter = (params?: {
 }) => {
   const controller = new AbortController();
   return {
-    call: axiosInstance.get<CharacterApiResponse>(`${BASE_URL}/character`, {
+    call: axiosInstance.get<CharacterApiResponse>(`/character`, {
       params,
+      signal: controller.signal,
+    }),
+    controller,
+  };
+};
+
+export const GetCharacterById = (id: number) => {
+  const controller = new AbortController();
+  return {
+    call: axiosInstance.get<Character>(`/character/${id}`, {
       signal: controller.signal,
     }),
     controller,

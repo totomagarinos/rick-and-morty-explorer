@@ -1,27 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CharacterList } from "./components";
 import { useApi } from "../shared/hooks";
 import { GetCharacter } from "./services";
 import type { CharacterApiResponse } from "./models";
 import { FilterBar } from "./components/filters";
+import { useSearchParams } from "react-router-dom";
 
 export const CharactersContainer = () => {
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [statusValue, setStatusValue] = useState<string>("");
-  const [speciesValue, setSpeciesValue] = useState<string>("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { loading, data, error, fetch } = useApi<CharacterApiResponse>(
-    () =>
-      GetCharacter({
-        name: searchValue,
-        status: statusValue,
-        species: speciesValue,
-      }),
-    { autoFetch: true }
+  const nameParam = searchParams.get("name") || "";
+  const statusParam = searchParams.get("status") || "";
+  const speciesParam = searchParams.get("species") || "";
+
+  const [searchValue, setSearchValue] = useState<string>(nameParam);
+  const [statusValue, setStatusValue] = useState<string>(statusParam);
+  const [speciesValue, setSpeciesValue] = useState<string>(speciesParam);
+
+  const { loading, data, error, fetch } = useApi<CharacterApiResponse>(() =>
+    GetCharacter({
+      name: searchValue,
+      status: statusValue,
+      species: speciesValue,
+    })
   );
 
-  const handleSearch = () => {
+  useEffect(() => {
     fetch();
+
+    setSearchValue(nameParam);
+    setStatusValue(statusParam);
+    setSpeciesValue(speciesParam);
+  }, [nameParam, statusParam, speciesParam]);
+
+  const handleSearch = () => {
+    const params: Record<string, string> = {};
+    if (searchValue) params.name = searchValue;
+    if (statusValue) params.status = statusValue;
+    if (speciesValue) params.species = speciesValue;
+
+    setSearchParams(params);
   };
 
   return (
@@ -38,8 +56,8 @@ export const CharactersContainer = () => {
 
       <CharacterList
         loading={loading}
-        characters={data?.results || []}
         error={error}
+        characters={data?.results || []}
       />
     </div>
   );

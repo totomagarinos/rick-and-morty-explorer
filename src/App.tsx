@@ -1,11 +1,12 @@
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import { CharactersContainer } from "./characters/CharactersContainer";
+import { AppRouter } from "./routes/AppRouter";
 
 function App() {
   return (
-    <>
-      <CharactersContainer />
-    </>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 
