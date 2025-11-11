@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CharacterList } from "./components";
 import { useApi } from "../shared/hooks";
-import { GetCharacter } from "./services";
+import { GetCharacters } from "./services";
 import type { CharacterApiResponse } from "./models";
 import { FilterBar } from "./components/filters";
 import { useSearchParams } from "react-router-dom";
@@ -18,7 +18,7 @@ export const CharactersContainer = () => {
   const [speciesValue, setSpeciesValue] = useState<string>(speciesParam);
 
   const { loading, data, error, fetch } = useApi<CharacterApiResponse>(() =>
-    GetCharacter({
+    GetCharacters({
       name: searchValue,
       status: statusValue,
       species: speciesValue,
