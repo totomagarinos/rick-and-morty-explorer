@@ -4,11 +4,12 @@ import type { EpisodeApiResponse, Episode } from "../models";
 
 const axiosInstance = axiosService.getAxiosInstance();
 
-export const GetEpisodes = () => {
+export const GetEpisodes = (params?: { page?: number }) => {
   const controller = loadAbort();
 
   return {
     call: axiosInstance.get<EpisodeApiResponse>("/episode", {
+      params,
       signal: controller.signal,
     }),
     controller,

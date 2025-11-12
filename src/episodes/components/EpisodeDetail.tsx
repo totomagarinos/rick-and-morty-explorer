@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../../shared/hooks";
 import type { Episode } from "../models";
 import { GetEpisodeById } from "../services";
@@ -62,6 +62,8 @@ export const EpisodeDetail = () => {
 
   return (
     <div>
+      <button onClick={() => navigate("/episodes")}>Volver</button>
+
       <h1>{episodeData?.name}</h1>
       <p>
         <strong>Episode: </strong>
@@ -86,15 +88,7 @@ export const EpisodeDetail = () => {
         <ul>
           {charactersData.map((character) => (
             <li key={character.id}>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(`/character/${character.id}`);
-                }}
-              >
-                {character.name}
-              </a>
+              <Link to={`/character/${character.id}`}>{character.name}</Link>
             </li>
           ))}
         </ul>

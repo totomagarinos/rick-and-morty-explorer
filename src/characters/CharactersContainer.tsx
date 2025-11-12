@@ -5,6 +5,7 @@ import { GetCharacters } from "./services";
 import type { CharacterApiResponse } from "./models";
 import { FilterBar } from "./components/filters";
 import { useSearchParams } from "react-router-dom";
+import { Pagination } from "../shared/components";
 
 export const CharactersContainer = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -12,6 +13,7 @@ export const CharactersContainer = () => {
   const nameParam = searchParams.get("name") || "";
   const statusParam = searchParams.get("status") || "";
   const speciesParam = searchParams.get("species") || "";
+  const pageParam = Number(searchParams.get("page")) || 1;
 
   const [searchValue, setSearchValue] = useState<string>(nameParam);
   const [statusValue, setStatusValue] = useState<string>(statusParam);
@@ -22,6 +24,7 @@ export const CharactersContainer = () => {
       name: searchValue,
       status: statusValue,
       species: speciesValue,
+      page: pageParam,
     })
   );
 
@@ -31,13 +34,24 @@ export const CharactersContainer = () => {
     setSearchValue(nameParam);
     setStatusValue(statusParam);
     setSpeciesValue(speciesParam);
-  }, [nameParam, statusParam, speciesParam]);
+  }, [nameParam, statusParam, speciesParam, pageParam]);
 
   const handleSearch = () => {
     const params: Record<string, string> = {};
     if (searchValue) params.name = searchValue;
     if (statusValue) params.status = statusValue;
     if (speciesValue) params.species = speciesValue;
+    params.page = "1";
+
+    setSearchParams(params);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    const params: Record<string, string> = {};
+    if (searchValue) params.name = searchValue;
+    if (statusValue) params.status = statusValue;
+    if (speciesValue) params.species = speciesValue;
+    params.page = String(newPage);
 
     setSearchParams(params);
   };
@@ -59,6 +73,8 @@ export const CharactersContainer = () => {
         error={error}
         characters={data?.results || []}
       />
+
+      <Pagination currentPage={pageParam} onPageChange={handlePageChange} />
     </div>
   );
 };

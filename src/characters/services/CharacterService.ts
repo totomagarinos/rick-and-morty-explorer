@@ -8,6 +8,7 @@ export const GetCharacters = (params?: {
   name?: string;
   status?: string;
   species?: string;
+  page?: number;
 }) => {
   const controller = loadAbort();
 
