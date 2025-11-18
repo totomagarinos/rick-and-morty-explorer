@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../../shared/hooks";
 import type { Character } from "../models";
 import { GetCharacterById } from "../services";
@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 import { extractUrlIds } from "../../utilities";
 import type { Episode } from "../../episodes/models";
 import { GetEpisodesById } from "../../episodes/services";
+import { FavoriteButton } from "../../shared/components";
 
 export const CharacterDetail = () => {
   const { id } = useParams();
   const [episodeIds, setEpisodesIds] = useState<number[]>([]);
+  const navigate = useNavigate();
 
   const {
     loading: characterLoading,
@@ -61,7 +63,14 @@ export const CharacterDetail = () => {
 
   return (
     <div>
-      <h2>{characterData?.name}</h2>
+      <button onClick={() => navigate("/")}>Volver</button>
+
+      <div>
+        <h2>{characterData?.name}</h2>
+        {characterData?.id !== undefined && (
+          <FavoriteButton characterId={characterData?.id} />
+        )}
+      </div>
       <img src={characterData?.image} alt={characterData?.name} />
       <p>Status: {characterData?.status}</p>
       <p>Species: {characterData?.species}</p>

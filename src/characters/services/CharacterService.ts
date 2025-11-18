@@ -37,9 +37,16 @@ export const GetCharactersById = (ids: number[]) => {
   const idsString = ids.join(",");
 
   return {
-    call: axiosInstance.get<Character[]>(`/character/${idsString}`, {
-      signal: controller.signal,
-    }),
+    call: axiosInstance
+      .get<Character[]>(`/character/${idsString}`, {
+        signal: controller.signal,
+      })
+      .then((response) => {
+        const data = Array.isArray(response.data)
+          ? response.data
+          : [response.data];
+        return { ...response, data };
+      }),
     controller,
   };
 };

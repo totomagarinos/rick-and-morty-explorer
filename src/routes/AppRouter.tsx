@@ -3,6 +3,7 @@ import { CharactersContainer } from "../characters/CharactersContainer";
 import { CharacterDetail } from "../characters/components";
 import { EpisodesContainer } from "../episodes/EpisodesContainer";
 import { EpisodeDetail } from "../episodes/components/EpisodeDetail";
+import { FavoritesContainer } from "../characters/components/FavoritesContainer";
 
 export const AppRouter = () => {
   return (
@@ -11,6 +12,7 @@ export const AppRouter = () => {
       <Route path="/character/:id" element={<CharacterDetail />} />
       <Route path="/episodes" element={<EpisodesContainer />} />
       <Route path="/episode/:id" element={<EpisodeDetail />} />
+      <Route path="/favorites" element={<FavoritesContainer />} />
     </Routes>
   );
 };

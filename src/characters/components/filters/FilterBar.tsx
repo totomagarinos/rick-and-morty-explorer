@@ -26,7 +26,7 @@ export const FilterBar = ({
       <SearchInput value={searchValue} onChange={onSearchChange} />
       <StatusFilter value={statusValue} onChange={onStatusChange} />
       <SpeciesFilter value={speciesValue} onChange={onSpeciesChange} />
-      <button onClick={onApplyFilters}>Buscar</button>
+      <button onClick={onApplyFilters}>Search</button>
     </div>
   );
 };

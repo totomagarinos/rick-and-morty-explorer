@@ -6,7 +6,10 @@ export const NavBar = () => {
       <Link to={`/`} style={{ marginRight: "40px" }}>
         Characters
       </Link>
-      <Link to={`/episodes`}>Episodes</Link>
+      <Link to={`/episodes`} style={{ marginRight: "40px" }}>
+        Episodes
+      </Link>
+      <Link to={`/favorites`}>Favorites</Link>
     </nav>
   );
 };
