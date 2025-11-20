@@ -21,9 +21,9 @@ export const CharactersContainer = () => {
 
   const { loading, data, error, fetch } = useApi<CharacterApiResponse>(() =>
     GetCharacters({
-      name: searchValue,
-      status: statusValue,
-      species: speciesValue,
+      name: nameParam,
+      status: statusParam,
+      species: speciesParam,
       page: pageParam,
     })
   );
@@ -48,9 +48,9 @@ export const CharactersContainer = () => {
 
   const handlePageChange = (newPage: number) => {
     const params: Record<string, string> = {};
-    if (searchValue) params.name = searchValue;
-    if (statusValue) params.status = statusValue;
-    if (speciesValue) params.species = speciesValue;
+    if (searchValue) params.name = nameParam;
+    if (statusValue) params.status = statusParam;
+    if (speciesValue) params.species = speciesParam;
     params.page = String(newPage);
 
     setSearchParams(params);
@@ -74,7 +74,11 @@ export const CharactersContainer = () => {
         characters={data?.results || []}
       />
 
-      <Pagination currentPage={pageParam} onPageChange={handlePageChange} />
+      <Pagination
+        currentPage={pageParam}
+        totalPages={data?.info.pages || 1}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
