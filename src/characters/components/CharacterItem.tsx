@@ -14,10 +14,10 @@ export const CharacterItem = ({ character }: Props) => {
   };
 
   const getStatusColor = () => {
-    switch (character.status.toLocaleLowerCase()) {
-      case "alive":
+    switch (character.status) {
+      case "Alive":
         return "bg-green-500";
-      case "dead":
+      case "Dead":
         return "bg-red-500";
       default:
         return "bg-gray-500";
