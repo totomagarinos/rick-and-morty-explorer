@@ -12,7 +12,7 @@ export const FavoriteButton = ({ characterId }: { characterId: number }) => {
   return (
     <button
       onClick={handleFavoriteClick}
-      className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-colors cursor-pointer shadow-lg"
+      className="absolute top-2 right-2 rounded-full p-2 shadow-xl z-10 transition-all duration-200 bg-gray-900/80 backdrop-blur-sm hover:bg-gray-800"
     >
       <span className="text-2xl">{isFavorite(characterId) ? "❤️" : "🤍"}</span>
     </button>

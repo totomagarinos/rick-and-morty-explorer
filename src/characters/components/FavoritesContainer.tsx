@@ -37,19 +37,27 @@ export const FavoritesContainer = () => {
 
   if (favorites.length === 0) {
     return (
-      <div>
-        <h1>Favorites</h1>
-        <p>You haven't added any favorites yet!</p>
-        <p>
-          Click the heart icon on any character to add them to your favorites.
+      <div className="max-w-4xl mx-auto mt-10 p-10 bg-gray-800 rounded-xl shadow-2xl shadow-green-500/10 border border-gray-700 text-center">
+        <h1 className="text-4xl font-extrabold text-green-400 mb-4">
+          No Favorites Found
+        </h1>
+        <p className="text-xl text-white mb-4">
+          You haven't added any favorites yet!
+        </p>
+        <p className="text-lg text-gray-300">
+          Click the{" "}
+          <span className="text-red-500 font-bold">🤍 heart icon</span> on any
+          character to add them to your favorites list.
         </p>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>Favorites ({favorites.length})</h1>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-4xl font-extrabold text-green-400 mb-8 border-b border-gray-700 pb-3">
+        My Favorites ({favorites.length})
+      </h1>
       <CharacterList characters={characters} loading={loading} error={error} />
     </div>
   );

@@ -11,10 +11,12 @@ interface Props {
 export const CharacterList = ({ characters, loading, error }: Props) => {
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[400px]">
+      <div className="flex justify-center items-center min-h-[400px] bg-gray-900 rounded-xl p-8">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          <p className="mt-4 text-gray-600">Loading characters...</p>
+          <div className="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-green-500"></div>
+          <p className="mt-4 text-green-400 font-bold text-xl">
+            Loading characters...
+          </p>
         </div>
       </div>
     );
@@ -22,22 +24,16 @@ export const CharacterList = ({ characters, loading, error }: Props) => {
 
   if (error) {
     const axiosError = error as AxiosError;
+    let errorMessage = error.message;
 
     if (axiosError.response?.status === 404) {
-      return (
-        <div className="text-center py-12 bg-yellow-50 rounded-lg border border-yellow-200">
-          <p className="text-xl text-yellow-800 font-medium">
-            No characters found
-          </p>
-          <p className="text-gray-600 mt2">Try a different search or filter</p>
-        </div>
-      );
+      errorMessage = "No characters found";
     }
 
     return (
-      <div className="text-center py-12 bg-red-50 rounded-lg border border-red-200">
-        <p className="text-xl text-red-800 font-medium">Error</p>
-        <p className="text-gray-600 mt-2">{error.message}</p>
+      <div className="max-w-xl mx-auto p-6 bg-gray-900 border border-red-500 rounded-xl shadow-xl shadow-red-900/50">
+        <h2 className="text-2xl font-extrabold text-red-500 mb-2">Error!</h2>
+        <p className="text-gray-300">{errorMessage}</p>
       </div>
     );
   }

@@ -27,13 +27,21 @@ export const EpisodesContainer = () => {
 
   return (
     <div>
+      <h1 className="text-4xl font-extrabold text-green-400 mb-8 border-b border-gray-700 pb-3">
+        Episodes
+      </h1>
+
       <EpisodeList
         loading={loading}
         error={error}
         episodes={data?.results || []}
       />
 
-      <Pagination currentPage={pageParam} onPageChange={handlePageChange} />
+      <Pagination
+        currentPage={pageParam}
+        totalPages={data?.info.pages || 1}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

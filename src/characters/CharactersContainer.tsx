@@ -58,6 +58,10 @@ export const CharactersContainer = () => {
 
   return (
     <div>
+      <h1 className="text-4xl font-extrabold text-green-400 mb-8 border-b border-gray-700 pb-3">
+        Characters
+      </h1>
+
       <FilterBar
         searchValue={searchValue}
         statusValue={statusValue}
